@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<h1>Chat</h1>
+
+<div style="width: 80%;margin-left: 10%;height: 500px;border: 1px solid black;display: grid;grid-template-columns: 70% 30%">
+    <div style="display: flex;flex-direction: column;justify-content: flex-end" >
+        <ul class="messages-list">
+        </ul>
+        <form style="width: 100%;background-color: lightgrey;padding: 5px" onsubmit="sendMessage(event)">
+            <p class="typing-alert" ></p>
+            <input type="hidden" name="userId" value="@Context.Session.GetString("userId")" />
+            <input type="hidden" name="username" value="@Context.Session.GetString("username")" />
+            <input type="text" placeholder="type..." name="message" autocomplete="off" oninput="iamTyping()" />
+            <input type="submit" value="send" />
+        </form>
+    </div>
+    <div style="border: 1px solid red">
+        <ul class="users-list">
+        </ul>
+    </div>
+</div>
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js?version=15"></script>

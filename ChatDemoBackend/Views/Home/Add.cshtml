@@ -1,0 +1,29 @@
+﻿@model ChatDemoBackend.Models.Product
+
+@{
+    ViewData["Title"] = "Add";
+
+    var info = Model;
+
+    if(info == null)
+    {
+        info = new Product();
+    }
+}
+
+<h1>Add</h1>
+<form method="post" asp-action="Add">
+
+    @if(info != null)
+    {
+        <input type="hidden" name="Product_Id" value="@info.Product_Id" />
+    }
+
+    <input style="margin: 10px" type="text" placeholder="Product name" name="Product_Name" value="@info.Product_Name" /> <br />
+    <span asp-validation-for="Product_Name"></span> <br />
+    <input style="margin: 10px" type="text" placeholder="Product price" name="Product_Price"  value="@info.Product_Price" /> <br />
+    <span asp-validation-for="Product_Price"></span> <br />
+    <input style="margin: 10px" type="submit" value="Save" /> <br />
+    <a asp-action="Products" >Back</a>
+</form>
+

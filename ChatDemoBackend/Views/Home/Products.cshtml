@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ChatDemoBackend.Models.Product> 
+
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<div>
+
+    <a asp-action="Add">+ Add Product</a>
+
+    @if (Model.Count() > 0)
+    {
+        <table style="margin: 20px;border: 1px solid black;border-collapse: collapse;width: 100%" >
+            <thead>
+                <tr style="background-color: darkblue">
+                    <th style="color: white">
+                        #
+                    </th>
+                    <th style="color: white">
+                        Product name
+                    </th>
+                    <th style="color: white">
+                        Product price
+                    </th>
+                    <th style="color: white">
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr style="border: 1px solid black;border-collapse: collapse">
+                    <td>
+                        @item.Product_Id
+                    </td>
+                    <td>
+                        @item.Product_Name
+                    </td>
+                    <td>
+                        @item.Product_Price
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-Id="@item.Product_Id">Edit</a>
+                        <form method="post" asp-action="Delete" onsubmit="delProduct(event)">
+                            <input type="hidden" name="Id" value="@item.Product_Id" />
+                            <input type="submit" value="Delete" />
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <span>No products found !</span>
+    }
+
+    <script>
+        function delProduct(event) {
+            event.preventDefault();
+
+            const isConfirmed = confirm("Are you sure?");
+
+            if (isConfirmed) {
+                event.target.submit();
+            }
+        }
+    </script>
+
+</div>
